@@ -1364,9 +1364,8 @@ LEAD SUBMISSION — posts to Vercel /api/lead which writes to Google Sheet.
 
     currentStep = step;
 
-    if (typeof fbq === 'function') {
-      fbq('trackCustom', 'QuizStep', { step: step });
-      if (step === 5) fbq('track', 'ViewContent');
+    if (step === 5 && typeof fbq === 'function') {
+      fbq('track', 'Lead', { content_name: 'Contact Form Viewed' });
     }
   };
 
@@ -1414,7 +1413,7 @@ LEAD SUBMISSION — posts to Vercel /api/lead which writes to Google Sheet.
     })
     .then(function () {
       if (typeof fbq === 'function') {
-        fbq('track', 'Lead', { content_name: 'Pristine Quiz', value: 0, currency: 'USD' });
+        fbq('track', 'Schedule', { content_name: 'Pristine Quiz', value: 0, currency: 'USD' });
       }
       window.location.href = '/thank-you.html';
     })
