@@ -1,11 +1,68 @@
 // Vercel serverless function — receives lead JSON from /api/lead and appends a row to a Google Sheet.
+// Also fires a server-side Meta Conversions API "Schedule" event (deduped with the browser pixel via event_id).
 // Required env vars (set in Vercel project settings):
 //   GOOGLE_SHEET_ID                 - the spreadsheet ID from its URL
 //   GOOGLE_SERVICE_ACCOUNT_EMAIL    - service account email (xxx@yyy.iam.gserviceaccount.com)
 //   GOOGLE_PRIVATE_KEY              - the service account private key (paste full PEM; \n will be normalized)
 //   GOOGLE_SHEET_TAB                - optional, defaults to "Leads"
+//   META_PIXEL_ID                   - Meta Pixel ID (e.g. 3963782680424186)
+//   META_ACCESS_TOKEN               - Meta Conversions API access token
+//   META_TEST_EVENT_CODE            - optional; set while testing in Events Manager → Test Events
 
 import { google } from 'googleapis';
+import crypto from 'crypto';
+
+const sha256 = (v) => crypto.createHash('sha256').update(String(v).trim().toLowerCase()).digest('hex');
+
+async function sendMetaCapiEvent({ body, req, eventId }) {
+  const pixelId = process.env.META_PIXEL_ID;
+  const accessToken = process.env.META_ACCESS_TOKEN;
+  if (!pixelId || !accessToken) return;
+
+  const phoneDigits = (body.phone || '').replace(/\D/g, '');
+  const userData = {
+    em: body.email ? [sha256(body.email)] : undefined,
+    ph: phoneDigits ? [sha256(phoneDigits)] : undefined,
+    fn: body.firstName ? [sha256(body.firstName)] : undefined,
+    ln: body.lastName ? [sha256(body.lastName)] : undefined,
+    ct: body.city ? [sha256(body.city)] : undefined,
+    st: body.state ? [sha256(body.state)] : undefined,
+    zp: body.postalCode ? [sha256(body.postalCode)] : undefined,
+    country: [sha256('us')],
+    client_ip_address: req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket?.remoteAddress,
+    client_user_agent: req.headers['user-agent']
+  };
+  Object.keys(userData).forEach(k => userData[k] === undefined && delete userData[k]);
+
+  const payload = {
+    data: [{
+      event_name: 'Schedule',
+      event_time: Math.floor(Date.now() / 1000),
+      event_id: eventId,
+      action_source: 'website',
+      event_source_url: body.pageUrl || undefined,
+      user_data: userData,
+      custom_data: {
+        content_name: 'Pristine Quiz',
+        home_type: body.homeType,
+        bedrooms: body.bedrooms,
+        frequency: body.frequency
+      }
+    }]
+  };
+  if (process.env.META_TEST_EVENT_CODE) payload.test_event_code = process.env.META_TEST_EVENT_CODE;
+
+  const url = `https://graph.facebook.com/v19.0/${pixelId}/events?access_token=${encodeURIComponent(accessToken)}`;
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!r.ok) {
+    const text = await r.text().catch(() => '');
+    console.error('Meta CAPI error:', r.status, text);
+  }
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -65,7 +122,11 @@ export default async function handler(req, res) {
       requestBody: { values: [row] }
     });
 
-    return res.status(200).json({ ok: true });
+    const eventId = body.eventId || crypto.randomUUID();
+    try { await sendMetaCapiEvent({ body, req, eventId }); }
+    catch (e) { console.error('CAPI send failed:', e?.message); }
+
+    return res.status(200).json({ ok: true, eventId });
   } catch (err) {
     console.error('Sheet append failed:', err.message);
     return res.status(500).json({ error: 'Failed to save lead' });
