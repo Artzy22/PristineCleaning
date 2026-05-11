@@ -1,0 +1,330 @@
+<!-- ============================================================
+PRISTINE HOME CARE, SECTION 3 (HOW IT WORKS)
+
+Cream-colored magazine spread breaking up the navy from Section 2.
+3 steps in a horizontal flow with serif numerals, brass accents,
+and one feature photo. Type-driven, premium, calm.
+============================================================ -->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+  .phc-how {
+    --phc-navy: #18244c;
+    --phc-navy-deep: #0c1840;
+    --phc-cream: #f6efe1;
+    --phc-cream-warm: #fbf6ec;
+    --phc-amber: #c79865;
+    --phc-amber-light: #e0b885;
+    --phc-amber-deep: #946432;
+    --phc-charcoal: #1c1c1e;
+    --phc-stone: rgba(246, 239, 225, 0.65);
+
+    position: relative;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(199, 152, 101, 0.12) 0%, transparent 60%),
+      linear-gradient(180deg, var(--phc-navy) 0%, var(--phc-navy-deep) 100%);
+    padding: 88px 24px 88px;
+    color: var(--phc-cream);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    overflow: hidden;
+  }
+  .phc-how, .phc-how * { box-sizing: border-box; }
+
+  /* Decorative background flourishes + grain */
+  .phc-how::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 0% 100%, rgba(224, 184, 133, 0.08), transparent 60%),
+      radial-gradient(ellipse 50% 35% at 100% 0%, rgba(224, 184, 133, 0.06), transparent 60%);
+    pointer-events: none;
+  }
+  .phc-how::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.4;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  /* ===== Header ===== */
+  .phc-how-header {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 80px;
+  }
+  .phc-how-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--phc-amber-light);
+    margin-bottom: 16px;
+  }
+  .phc-how h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+    font-weight: 500;
+    font-size: clamp(32px, 5vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--phc-cream);
+    margin: 0 0 22px;
+  }
+  .phc-how h2 em {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--phc-amber-light);
+    position: relative;
+    display: inline-block;
+  }
+  .phc-how h2 em::after {
+    content: '';
+    position: absolute;
+    left: -2%;
+    right: -2%;
+    bottom: -4px;
+    height: 8px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'><path d='M2 5 Q 50 1, 100 4 T 198 3' stroke='%23d4a056' stroke-width='2' fill='none' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  .phc-how-sub {
+    font-size: 16px;
+    line-height: 1.55;
+    color: rgba(246, 239, 225, 0.7);
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  /* ===== Steps grid ===== */
+  .phc-how-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Connecting dashed line behind the steps (desktop only) */
+  .phc-how-grid::before {
+    content: '';
+    position: absolute;
+    top: 48px;
+    left: 16%;
+    right: 16%;
+    height: 1px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--phc-amber-light) 0,
+      var(--phc-amber-light) 4px,
+      transparent 4px,
+      transparent 10px
+    );
+    opacity: 0.5;
+    z-index: 0;
+  }
+
+  .phc-step-card {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 0 12px;
+  }
+
+  .phc-step-num-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+  .phc-step-num {
+    width: 92px; height: 92px;
+    border-radius: 50%;
+    background: var(--phc-cream-warm);
+    color: var(--phc-navy);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-variation-settings: 'opsz' 144;
+    font-weight: 600;
+    font-size: 42px;
+    line-height: 1;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.7),
+      0 0 0 1px rgba(224, 184, 133, 0.3),
+      0 18px 36px -10px rgba(0, 0, 0, 0.55);
+    position: relative;
+  }
+  .phc-step-num::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px dashed rgba(224, 184, 133, 0.35);
+    pointer-events: none;
+  }
+
+  .phc-step-eyebrow {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--phc-amber-light);
+    margin-bottom: 10px;
+  }
+  .phc-step-card h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--phc-cream);
+    margin: 0 0 14px;
+  }
+  .phc-step-card h3 em { font-style: italic; color: var(--phc-amber-light); }
+
+  .phc-step-card p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: rgba(246, 239, 225, 0.7);
+    margin: 0;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Tiny detail pill under each step */
+  .phc-step-detail {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(224, 184, 133, 0.28);
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--phc-amber-light);
+    letter-spacing: 0.02em;
+  }
+  .phc-step-detail svg { display: block; }
+
+  /* ===== Footer note ===== */
+  .phc-how-foot {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(224, 184, 133, 0.22);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .phc-how-foot-text {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: 'opsz' 144;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--phc-cream);
+    letter-spacing: -0.005em;
+    margin: 0 0 6px;
+  }
+  .phc-how-foot-meta {
+    font-size: 12.5px;
+    color: rgba(246, 239, 225, 0.65);
+    letter-spacing: 0.015em;
+  }
+  .phc-how-foot-meta strong { color: var(--phc-amber-light); font-weight: 700; }
+
+  /* ===== Tablet ===== */
+  @media (max-width: 820px) {
+    .phc-how { padding: 64px 18px 64px; }
+    .phc-how-grid {
+      grid-template-columns: 1fr;
+      gap: 44px;
+    }
+    .phc-how-grid::before { display: none; }
+    .phc-step-num { width: 76px; height: 76px; font-size: 34px; }
+    .phc-step-card h3 { font-size: 22px; }
+    .phc-how-header { margin-bottom: 48px; }
+    .phc-how h2 { font-size: clamp(26px, 6.5vw, 34px); }
+    .phc-how-sub { font-size: 14.5px; }
+  }
+  @media (max-width: 640px) {
+    .phc-how { padding: 48px 16px 56px; }
+    .phc-how-header { margin-bottom: 36px; }
+    .phc-how-grid { gap: 36px; }
+    .phc-step-num { width: 68px; height: 68px; font-size: 30px; }
+    .phc-step-num::after { inset: -6px; }
+    .phc-how-foot { margin-top: 48px; padding-top: 28px; }
+  }
+</style>
+
+<section class="phc-how">
+  <div class="phc-how-header">
+    <div class="phc-how-eyebrow">How it works</div>
+    <h2>From quote to spotless in <em>three simple steps</em></h2>
+    <p class="phc-how-sub">No surprises, no hassle. Just an effortless path from "I need a clean" to coming home to one.</p>
+  </div>
+
+  <div class="phc-how-grid">
+
+    <!-- ===== Step 1 ===== -->
+    <div class="phc-step-card">
+      <div class="phc-step-num-wrap">
+        <div class="phc-step-num">1</div>
+      </div>
+      <div class="phc-step-eyebrow">Step One</div>
+      <h3>Take the <em>30-second</em> quiz</h3>
+      <p>Tell us about your home, type, size, how often you'd like it cleaned. We use it to put together a personalized quote.</p>
+      <div class="phc-step-detail">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        Under one minute
+      </div>
+    </div>
+
+    <!-- ===== Step 2 ===== -->
+    <div class="phc-step-card">
+      <div class="phc-step-num-wrap">
+        <div class="phc-step-num">2</div>
+      </div>
+      <div class="phc-step-eyebrow">Step Two</div>
+      <h3>We <em>reach out</em> within 5 minutes</h3>
+      <p>A team member calls or texts you to walk through your quote, answer questions, and lock in a day & time that works.</p>
+      <div class="phc-step-detail">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Real human, real fast
+      </div>
+    </div>
+
+    <!-- ===== Step 3 ===== -->
+    <div class="phc-step-card">
+      <div class="phc-step-num-wrap">
+        <div class="phc-step-num">3</div>
+      </div>
+      <div class="phc-step-eyebrow">Step Three</div>
+      <h3>Come home to <em>spotless</em></h3>
+      <p>Our trusted team arrives on time and treats your home like their own. You walk in to a clean you can feel, every detail handled.</p>
+      <div class="phc-step-detail">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8v10a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-5a2 2 0 0 0-4 0v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V11z"/></svg>
+        We handle the rest
+      </div>
+    </div>
+
+  </div>
+
+  <div class="phc-how-foot">
+    <p class="phc-how-foot-text">"Pristine made it ridiculously easy."</p>
+    <p class="phc-how-foot-meta"><strong>4.9 ★</strong> · 200+ Atlanta families</p>
+  </div>
+</section>

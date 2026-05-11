@@ -1,0 +1,287 @@
+<!-- ============================================================
+PRISTINE HOME CARE — TERMS & CONDITIONS PAGE
+
+Paste this entire block into the Custom HTML block on your
+/terms-and-conditions-page GHL page. Self-contained — own
+styles + nav.
+
+⚠️ TEMPLATE LANGUAGE. Have a lawyer review before scaling ads.
+Date: update the EFFECTIVE_DATE constant at top.
+============================================================ -->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+  .phc-legal {
+    --phc-navy: #0a1f3d;
+    --phc-navy-deep: #050f1f;
+    --phc-cream: #f6efe1;
+    --phc-cream-warm: #fbf6ec;
+    --phc-amber: #d4a056;
+    --phc-amber-deep: #a87832;
+    --phc-charcoal: #1c1c1e;
+    --phc-stone: #6b6b6b;
+
+    background: var(--phc-cream-warm);
+    color: var(--phc-charcoal);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .phc-legal, .phc-legal * { box-sizing: border-box; }
+
+  /* ===== Top nav ===== */
+  .phc-legal-nav {
+    background: var(--phc-navy);
+    padding: 18px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .phc-legal-logo {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100, 'wght' 600;
+    font-style: italic;
+    color: var(--phc-cream);
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .phc-legal-logo small {
+    display: block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-style: normal;
+    font-size: 8.5px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--phc-amber);
+    margin-top: 2px;
+  }
+  .phc-legal-back {
+    font-size: 13px;
+    color: rgba(246, 239, 225, 0.8);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color .2s;
+  }
+  .phc-legal-back:hover { color: var(--phc-amber); }
+
+  /* ===== Hero header ===== */
+  .phc-legal-hero {
+    background: linear-gradient(180deg, var(--phc-cream-warm) 0%, var(--phc-cream) 100%);
+    padding: 80px 24px 48px;
+    text-align: center;
+    border-bottom: 1px solid rgba(212, 160, 86, 0.18);
+  }
+  .phc-legal-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--phc-amber-deep);
+    margin-bottom: 14px;
+  }
+  .phc-legal-hero h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+    font-weight: 500;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--phc-charcoal);
+    margin: 0 0 14px;
+  }
+  .phc-legal-hero h1 em {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--phc-amber-deep);
+  }
+  .phc-legal-meta {
+    color: var(--phc-stone);
+    font-size: 14px;
+    letter-spacing: 0.01em;
+  }
+
+  /* ===== Content ===== */
+  .phc-legal-body {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+  }
+  .phc-legal-body h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--phc-charcoal);
+    margin: 48px 0 14px;
+  }
+  .phc-legal-body h2:first-child { margin-top: 0; }
+  .phc-legal-body h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    font-weight: 500;
+    font-size: 19px;
+    color: var(--phc-charcoal);
+    margin: 28px 0 10px;
+    letter-spacing: -0.01em;
+  }
+  .phc-legal-body p {
+    margin: 0 0 16px;
+    color: #2c2c2e;
+  }
+  .phc-legal-body strong { font-weight: 700; color: var(--phc-charcoal); }
+  .phc-legal-body a {
+    color: var(--phc-amber-deep);
+    text-decoration: underline;
+    text-decoration-color: rgba(168, 120, 50, 0.4);
+    text-underline-offset: 3px;
+  }
+  .phc-legal-body a:hover { text-decoration-color: var(--phc-amber-deep); }
+  .phc-legal-body ul {
+    margin: 0 0 18px;
+    padding-left: 22px;
+  }
+  .phc-legal-body li {
+    margin-bottom: 8px;
+    color: #2c2c2e;
+  }
+
+  /* Highlight box for SMS / important sections */
+  .phc-legal-callout {
+    background: rgba(212, 160, 86, 0.08);
+    border: 1px solid rgba(212, 160, 86, 0.25);
+    border-left: 3px solid var(--phc-amber);
+    padding: 20px 22px;
+    border-radius: 10px;
+    margin: 18px 0 28px;
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+  .phc-legal-callout strong { color: var(--phc-amber-deep); }
+
+  /* ===== Footer block ===== */
+  .phc-legal-foot {
+    background: var(--phc-navy);
+    color: rgba(246, 239, 225, 0.75);
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .phc-legal-foot a { color: var(--phc-amber); text-decoration: none; }
+  .phc-legal-foot a:hover { text-decoration: underline; }
+  .phc-legal-foot-tag {
+    color: rgba(246, 239, 225, 0.5);
+    font-size: 11.5px;
+    margin-top: 12px;
+  }
+
+  @media (max-width: 640px) {
+    .phc-legal-nav { padding: 14px 20px; }
+    .phc-legal-hero { padding: 56px 20px 40px; }
+    .phc-legal-body { padding: 48px 20px 72px; }
+    .phc-legal-body h2 { font-size: 22px; }
+  }
+</style>
+
+<div class="phc-legal">
+
+  <nav class="phc-legal-nav">
+    <a href="/" class="phc-legal-logo">Pristine<small>Home Care</small></a>
+    <a href="/" class="phc-legal-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back to home
+    </a>
+  </nav>
+
+  <header class="phc-legal-hero">
+    <div class="phc-legal-eyebrow">Legal</div>
+    <h1>Terms &amp; <em>Conditions</em></h1>
+    <div class="phc-legal-meta">Effective: May 1, 2026 · Last updated: May 1, 2026</div>
+  </header>
+
+  <main class="phc-legal-body">
+
+    <p>These Terms &amp; Conditions ("Terms") govern your use of <a href="https://www.pristinehomecare.online">pristinehomecare.online</a> and the services provided by <strong>Pristine Home Care</strong>, a DBA of <strong>GRWTH CO LLC</strong> ("Pristine," "we," "us," or "our"). By using our website or booking our services, you agree to these Terms.</p>
+
+    <h2>1. Eligibility</h2>
+    <p>You must be at least <strong>18 years of age</strong> to use our services or to provide consent for SMS communications. SMS messaging services are intended for individuals 18 years of age or older. If you are under 18, please do not submit any information through this site.</p>
+
+    <h2>2. About the Service</h2>
+    <p>Pristine Home Care provides residential cleaning services, including (but not limited to) one-time cleans, weekly, bi-weekly, and monthly recurring service, move-in/move-out cleans, and post-construction cleans, primarily in the North Atlanta metro area.</p>
+    <p>Service availability, scheduling, and pricing are determined on a per-quote basis after we learn about your home and needs.</p>
+
+    <h2>3. Quote Requests &amp; Booking</h2>
+    <p>Submitting a quote request through our website does <strong>not</strong> create a binding service contract. A team member will contact you to discuss your needs and provide a personalized quote. A booking is confirmed only after both parties agree to the scope of service, schedule, and price.</p>
+
+    <h2>4. Cancellations &amp; Rescheduling</h2>
+    <p>We ask for <strong>at least 24 hours notice</strong> for cancellations or rescheduling. Late cancellations or lockouts (when the team arrives and is unable to access the home) may be subject to a fee, which will be communicated in advance.</p>
+
+    <h2>5. Payment</h2>
+    <p>Payment terms are agreed at the time of booking. We accept major credit cards and other payment methods as communicated. Recurring services are typically billed after each visit unless otherwise arranged.</p>
+
+    <h2>6. Satisfaction Guarantee</h2>
+    <p>We stand behind our work. If you're not 100% satisfied, contact us within <strong>24 hours</strong> of the cleaning and we will return to re-clean the affected areas at no additional charge. The satisfaction guarantee does not provide for cash refunds.</p>
+
+    <h2>7. SMS Communications</h2>
+    <div class="phc-legal-callout">
+      <p><strong>By submitting your phone number and checking the consent box on our website, you agree to receive SMS messages from Pristine Home Care (GRWTH CO LLC).</strong> These may include appointment confirmations, scheduling updates, service reminders, special offers, discounts, and promotional messages.</p>
+      <p><strong>Message frequency varies.</strong> Message and data rates may apply. Reply <strong>STOP</strong> at any time to opt out. Reply <strong>HELP</strong> or text HELP to (516) 589-9288 for assistance.</p>
+      <p style="margin-bottom:0;"><strong>Carrier disclaimer:</strong> Carriers are not liable for delayed or undelivered messages. We are not responsible for any charges incurred from your wireless carrier.</p>
+    </div>
+
+    <h2>8. Property Access &amp; Security</h2>
+    <p>You are responsible for ensuring our team has safe and lawful access to your home at the scheduled time. If you provide a key, code, or alarm information, you authorize Pristine Home Care personnel to use it for the purpose of providing service. We treat all access information confidentially.</p>
+
+    <h2>9. Items We Don't Clean</h2>
+    <p>For your safety and ours, our team does not handle the following without explicit prior agreement:</p>
+    <ul>
+      <li>Hazardous materials, biohazards, or pet/animal waste.</li>
+      <li>Heavy lifting or moving of furniture beyond reasonable cleaning needs.</li>
+      <li>Climbing on ladders beyond a standard 2-step.</li>
+      <li>Items that require specialized cleaning or restoration.</li>
+    </ul>
+
+    <h2>10. Damage &amp; Liability</h2>
+    <p>While we treat your home with care, accidents can happen. Notify us within 24 hours of a cleaning if you believe damage occurred. We will investigate and resolve in good faith.</p>
+    <p>To the maximum extent permitted by law, our total liability for any claim arising from our services shall not exceed the amount paid by you for the specific cleaning service in question. We are not liable for indirect, incidental, or consequential damages.</p>
+
+    <h2>11. Intellectual Property</h2>
+    <p>All content on this website — including text, graphics, logos, and design — is the property of Pristine Home Care / GRWTH CO LLC and protected by applicable intellectual property laws. You may not reproduce or use it without permission.</p>
+
+    <h2>12. Indemnification</h2>
+    <p>You agree to indemnify and hold Pristine Home Care, GRWTH CO LLC, and its team members harmless from any claims, damages, or expenses arising from your misuse of our services or violation of these Terms.</p>
+
+    <h2>13. Termination</h2>
+    <p>We reserve the right to refuse service or terminate a recurring arrangement at our discretion, including for non-payment, abusive behavior, or unsafe working conditions. You may also discontinue service at any time with reasonable notice.</p>
+
+    <h2>14. Governing Law</h2>
+    <p>These Terms are governed by the laws of the <strong>State of Georgia</strong>, without regard to its conflict-of-laws provisions. Any dispute arising from these Terms or our services shall be resolved in the courts located in Cobb County, Georgia.</p>
+
+    <h2>15. Changes to These Terms</h2>
+    <p>We may update these Terms from time to time. The "Last updated" date at the top reflects the most recent revision. Continued use of our website or services after changes are posted constitutes acceptance of the updated Terms.</p>
+
+    <h2>16. Contact Us</h2>
+    <p>Questions about these Terms? Get in touch:</p>
+    <p>
+      <strong>Pristine Home Care</strong> (a DBA of GRWTH CO LLC)<br>
+      Email: <a href="mailto:info@pristinehomecare.online">info@pristinehomecare.online</a><br>
+      Phone: <a href="tel:4044225144">(404) 422-5144</a>
+    </p>
+
+  </main>
+
+  <footer class="phc-legal-foot">
+    © 2026 Pristine Home Care · <a href="/privacy-policy">Privacy Policy</a> · <a href="/">Home</a>
+    <div class="phc-legal-foot-tag">Pristine Home Care is a DBA of GRWTH CO LLC.</div>
+  </footer>
+
+</div>

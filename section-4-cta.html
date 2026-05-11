@@ -1,0 +1,219 @@
+<!-- ============================================================
+PRISTINE HOME CARE, SECTION 4 (FINAL CTA BANNER)
+
+Last conversion moment before the footer. Dark navy with a
+dramatic editorial headline + amber pill CTA that scrolls back
+to the quiz at the top of the page.
+============================================================ -->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+  .phc-cta {
+    --phc-navy: #18244c;
+    --phc-navy-deep: #0c1840;
+    --phc-navy-soft: #1f2d5e;
+    --phc-cream: #f6efe1;
+    --phc-cream-warm: #fbf6ec;
+    --phc-amber: #c79865;
+    --phc-amber-light: #e0b885;
+    --phc-amber-deep: #946432;
+
+    position: relative;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 100%, rgba(199, 152, 101, 0.16) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(199, 152, 101, 0.08) 0%, transparent 60%),
+      linear-gradient(180deg, var(--phc-navy) 0%, var(--phc-navy-deep) 100%);
+    padding: 88px 24px;
+    text-align: center;
+    color: var(--phc-cream);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    overflow: hidden;
+  }
+  .phc-cta, .phc-cta * { box-sizing: border-box; }
+
+  /* Subtle film grain */
+  .phc-cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.4;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  /* Decorative ornaments */
+  .phc-cta-ornament {
+    display: inline-block;
+    width: 70px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--phc-amber-light), transparent);
+    margin: 0 14px;
+    vertical-align: middle;
+  }
+  .phc-cta-star {
+    display: inline-block;
+    color: var(--phc-amber-light);
+    font-size: 8px;
+    vertical-align: middle;
+  }
+
+  /* ===== Inner ===== */
+  .phc-cta-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .phc-cta-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--phc-amber-light);
+    margin-bottom: 24px;
+  }
+
+  .phc-cta h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+    font-weight: 500;
+    font-size: clamp(34px, 5.6vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--phc-cream);
+    margin: 0 0 22px;
+  }
+  .phc-cta h2 em {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--phc-amber-light);
+    position: relative;
+    display: inline-block;
+  }
+  .phc-cta h2 em::after {
+    content: '';
+    position: absolute;
+    left: -3%;
+    right: -3%;
+    bottom: -6px;
+    height: 10px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'><path d='M2 7 Q 50 1, 100 6 T 198 5' stroke='%23e0b885' stroke-width='2.5' fill='none' stroke-linecap='round' opacity='0.85'/></svg>");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .phc-cta-sub {
+    font-size: clamp(15px, 1.8vw, 18px);
+    line-height: 1.55;
+    color: rgba(246, 239, 225, 0.72);
+    max-width: 580px;
+    margin: 0 auto 36px;
+  }
+
+  /* ===== Big amber CTA pill ===== */
+  .phc-cta-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 22px 48px;
+    background: linear-gradient(180deg, var(--phc-amber-light) 0%, var(--phc-amber) 60%, var(--phc-amber-deep) 100%);
+    color: var(--phc-navy-deep);
+    border: 0;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0.005em;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      0 18px 40px -10px rgba(168, 120, 50, 0.6),
+      0 0 0 1px rgba(212, 160, 86, 0.4);
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s;
+    text-decoration: none;
+  }
+  .phc-cta-button::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform .9s ease;
+  }
+  .phc-cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.7),
+      0 24px 50px -12px rgba(168, 120, 50, 0.75),
+      0 0 0 1px rgba(212, 160, 86, 0.5);
+  }
+  .phc-cta-button:hover::after { transform: translateX(100%); }
+  .phc-cta-button-arrow {
+    display: inline-flex;
+    align-items: center;
+    transition: transform .25s;
+  }
+  .phc-cta-button:hover .phc-cta-button-arrow { transform: translateX(6px); }
+
+  /* ===== Trust line below CTA ===== */
+  .phc-cta-trust {
+    margin-top: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    color: rgba(246, 239, 225, 0.65);
+    letter-spacing: 0.015em;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .phc-cta-trust .phc-cta-stars { color: var(--phc-amber-light); letter-spacing: 2px; font-size: 13px; }
+  .phc-cta-trust strong { color: var(--phc-cream); font-weight: 700; }
+  .phc-cta-trust .phc-cta-sep {
+    width: 3px; height: 3px; border-radius: 999px;
+    background: rgba(224, 184, 133, 0.4);
+  }
+
+  /* ===== Mobile ===== */
+  @media (max-width: 640px) {
+    .phc-cta { padding: 56px 18px; }
+    .phc-cta h2 { font-size: clamp(26px, 7vw, 34px); margin-bottom: 16px; }
+    .phc-cta-sub { font-size: 14.5px; margin-bottom: 28px; }
+    .phc-cta-button { padding: 18px 32px; font-size: 15.5px; }
+    .phc-cta-trust { flex-wrap: wrap; justify-content: center; gap: 8px 12px; }
+    .phc-cta-ornament { width: 40px; margin: 0 10px; }
+    .phc-cta-eyebrow { margin-bottom: 18px; font-size: 10px; }
+  }
+</style>
+
+<section class="phc-cta">
+  <div class="phc-cta-inner">
+    <div class="phc-cta-eyebrow">
+      <span class="phc-cta-ornament"></span>
+      Ready when you are
+      <span class="phc-cta-ornament"></span>
+    </div>
+
+    <h2>Stop trading weekends for <em>chores</em>.</h2>
+
+    <p class="phc-cta-sub">Get a free, personalized quote in under 30 seconds. A team member calls or texts you in the next 5 minutes, no commitment, no spam.</p>
+
+    <a href="#phc-quiz" class="phc-cta-button" onclick="event.preventDefault(); var q=document.getElementById('phc-quiz'); if(q) q.scrollIntoView({behavior:'smooth', block:'center'});">
+      Get my free quote
+      <span class="phc-cta-button-arrow">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </span>
+    </a>
+
+    <div class="phc-cta-trust">
+      <span class="phc-cta-stars">★★★★★</span>
+      <strong>4.9</strong> from 200+ Atlanta families
+      <span class="phc-cta-sep"></span>
+      100% satisfaction guarantee
+    </div>
+  </div>
+</section>

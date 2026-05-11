@@ -1,0 +1,109 @@
+{
+  "name": "Pristine Home Care - Form to GHL Contact",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "pristine-lead",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "webhook-1",
+      "name": "Webhook (Form Submit)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "pristine-lead"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://services.leadconnectorhq.com/contacts/upsert",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer pit-46f3497f-c46d-42a1-9e14-3cbf3b4baf01"
+            },
+            {
+              "name": "Version",
+              "value": "2021-07-28"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  locationId: 'iz6XXcGy6v5QfxJHe36T',\n  firstName: $json.body.firstName,\n  lastName: $json.body.lastName,\n  name: ($json.body.firstName || '') + ' ' + ($json.body.lastName || ''),\n  email: $json.body.email,\n  phone: $json.body.phone,\n  address1: $json.body.address1,\n  city: $json.body.city,\n  state: $json.body.state || 'Georgia',\n  postalCode: $json.body.postalCode,\n  country: 'US',\n  tags: ['pristine-lead', 'funnel-submission'],\n  source: $json.body.source || 'Pristine Home Care Funnel'\n}) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "ghl-upsert-1",
+      "name": "Create/Update GHL Contact",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true, contactId: ($json.contact && $json.contact.id) || null, raw: $json } }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "respond-1",
+      "name": "Respond to Form",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [760, 300]
+    }
+  ],
+  "connections": {
+    "Webhook (Form Submit)": {
+      "main": [
+        [
+          {
+            "node": "Create/Update GHL Contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create/Update GHL Contact": {
+      "main": [
+        [
+          {
+            "node": "Respond to Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}

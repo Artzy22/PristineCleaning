@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pristine Home Care">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Pacifico&amp;family=Plus+Jakarta+Sans:wght@500&amp;display=swap');
+      .phc-mark-script { font-family: 'Pacifico', cursive; font-size: 200px; fill: currentColor; }
+      .phc-mark-sub    { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 34px; font-weight: 500; fill: currentColor; letter-spacing: 5px; }
+    </style>
+  </defs>
+
+  <!-- Pristine script -->
+  <text x="320" y="200" text-anchor="middle" class="phc-mark-script">Pristine</text>
+
+  <!-- home care row with flanking dashes -->
+  <g transform="translate(320, 260)">
+    <line x1="-145" y1="0" x2="-90" y2="0" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <text x="0" y="12" text-anchor="middle" class="phc-mark-sub">home care</text>
+    <line x1="90"  y1="0" x2="145" y2="0" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+</svg>
