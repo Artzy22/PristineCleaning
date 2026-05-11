@@ -1029,8 +1029,18 @@ BEFORE PUBLISHING:
   }
 </style>
 
-<!-- Meta Pixel is loaded in the merged index.html <head> via build.mjs -->
-
+<!-- META PIXEL — replace YOUR_PIXEL_ID_HERE in BOTH places -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'YOUR_PIXEL_ID_HERE');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"/></noscript>
 
 <div class="phc-root">
   <main class="phc-stage">
@@ -1316,10 +1326,14 @@ BEFORE PUBLISHING:
 </script>
 
 <!-- ============================================================
-LEAD SUBMISSION — posts to Vercel /api/lead which writes to Google Sheet.
+GHL FORM INTEGRATION — DO NOT EDIT.
+This block fills the hidden GHL Form element on the funnel page
+and clicks its native submit. Took 30+ iterations to get right.
 ============================================================ -->
 <script>
 (function () {
+  var GHL_FORM_ID = 'bBWtxzVyzLdqPoTylrnU';
+
   var data = {
     homeType: '', bedrooms: '', frequency: '',
     address1: '', city: '', state: 'Georgia', postalCode: ''
@@ -1364,10 +1378,88 @@ LEAD SUBMISSION — posts to Vercel /api/lead which writes to Google Sheet.
 
     currentStep = step;
 
-    if (step === 5 && typeof fbq === 'function') {
-      fbq('track', 'Lead', { content_name: 'Contact Form Viewed' });
+    if (typeof fbq === 'function') {
+      fbq('trackCustom', 'QuizStep', { step: step });
+      if (step === 5) fbq('track', 'ViewContent');
     }
   };
+
+  function setReactInputValue(input, value) {
+    if (input.tagName === 'SELECT') {
+      // Find a matching option by value, text, or case-insensitive match
+      var lower = String(value).toLowerCase();
+      var match = Array.from(input.options).find(function (o) {
+        var oVal = String(o.value).toLowerCase();
+        var oText = String(o.text).toLowerCase();
+        return oVal === lower || oText === lower
+          || oVal.indexOf(lower) === 0 || oText.indexOf(lower) === 0;
+      });
+      if (match) { input.value = match.value; }
+      else { input.value = value; }
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      return;
+    }
+    var proto = input.tagName === 'TEXTAREA' ? window.HTMLTextAreaElement.prototype : window.HTMLInputElement.prototype;
+    var setter = Object.getOwnPropertyDescriptor(proto, 'value');
+    if (setter && setter.set) setter.set.call(input, value);
+    else input.value = value;
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  function fillField(input, value, label) {
+    if (!input) { console.warn('PHC: input not found for', label); return; }
+    if (!value) { console.warn('PHC: no value for', label); return; }
+    setReactInputValue(input, value);
+    console.log('PHC: filled', label, '(' + (input.name || input.type) + ') =', value);
+  }
+
+  function fillHiddenForm() {
+    console.log('PHC: looking for hidden GHL form on the page...');
+    var form = document.querySelector('.form-3BBACEcv_x');
+    if (!form) {
+      console.error('PHC: no hidden GHL form found. Did you add the Form element to the funnel?');
+      return false;
+    }
+    console.log('PHC: found hidden GHL form, filling fields...');
+
+    var fn = document.getElementById('phc-firstName').value.trim();
+    var ln = document.getElementById('phc-lastName').value.trim();
+    var ph = document.getElementById('phc-phone').value.trim();
+    var em = document.getElementById('phc-email').value.trim();
+
+    fillField(form.querySelector('input[name="first_name"]'), fn, 'first_name');
+    fillField(form.querySelector('input[name="last_name"]'), ln, 'last_name');
+    fillField(form.querySelector('input[type="tel"], input[name="phone"]'), ph, 'phone');
+    fillField(form.querySelector('input[type="email"], input[name="email"], input[name="email1"]'), em, 'email');
+    fillField(form.querySelector('input[name="address1"], input[name="address"], input[name="street_address"]'), data.address1, 'address1');
+    fillField(form.querySelector('input[name="city"], select[name="city"]'), data.city, 'city');
+    fillField(form.querySelector('input[name="state"], select[name="state"]'), data.state, 'state');
+    fillField(form.querySelector('input[name="postal_code"], input[name="postalCode"], select[name="postal_code"]'), data.postalCode, 'postal_code');
+    fillField(form.querySelector('input[name="country"], select[name="country"]'), 'United States', 'country');
+
+    var knownNames = ['first_name', 'last_name', 'phone', 'email', 'email1',
+                      'address1', 'address', 'street_address',
+                      'city', 'state', 'country', 'postal_code', 'postalCode', 'Search'];
+    var customs = Array.from(form.querySelectorAll('input[type="text"]'))
+      .filter(function (i) { return knownNames.indexOf(i.name) === -1; });
+    console.log('PHC: ' + customs.length + ' custom text input(s) detected');
+    fillField(customs[0], data.homeType, 'Home Type (custom #1)');
+    fillField(customs[1], data.frequency, 'Frequency (custom #2)');
+    fillField(customs[2], data.bedrooms, 'Bedrooms (custom #3)');
+
+    form.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
+      if (!cb.checked) { cb.click(); console.log('PHC: ticked consent checkbox', cb.name); }
+    });
+
+    setTimeout(function () {
+      var sb = form.querySelector('button[type="submit"], input[type="submit"], button.form-btn-submit, button');
+      if (sb) { console.log('PHC: clicking submit button'); sb.click(); }
+      else console.error('PHC: submit button not found');
+    }, 200);
+    return true;
+  }
 
   window.phcSubmit = function () {
     var fn = document.getElementById('phc-firstName').value.trim();
@@ -1384,48 +1476,7 @@ LEAD SUBMISSION — posts to Vercel /api/lead which writes to Google Sheet.
     var btn = document.getElementById('phc-submit');
     btn.disabled = true; btn.textContent = 'Sending...';
 
-    var eventId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ('phc-' + Date.now() + '-' + Math.random().toString(36).slice(2));
-
-    var payload = {
-      firstName: fn,
-      lastName: ln,
-      phone: ph,
-      email: em,
-      homeType: data.homeType,
-      bedrooms: data.bedrooms,
-      frequency: data.frequency,
-      address1: data.address1,
-      city: data.city,
-      state: data.state,
-      postalCode: data.postalCode,
-      consent: c1,
-      submittedAt: new Date().toISOString(),
-      pageUrl: window.location.href,
-      referrer: document.referrer || '',
-      eventId: eventId
-    };
-
-    fetch('/api/lead', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    })
-    .then(function (r) {
-      if (!r.ok) throw new Error('Submit failed: ' + r.status);
-      return r.json().catch(function () { return {}; });
-    })
-    .then(function () {
-      if (typeof fbq === 'function') {
-        fbq('track', 'Schedule', { content_name: 'Pristine Quiz', value: 0, currency: 'USD' }, { eventID: eventId });
-      }
-      window.location.href = '/thank-you.html';
-    })
-    .catch(function (err) {
-      console.error('PHC submit error:', err);
-      alert("Something went wrong. Please call (404) 422-5144 and we'll take care of you.");
-      btn.disabled = false;
-      btn.textContent = 'Get my free quote';
-    });
+    fillHiddenForm();
   };
 })();
 </script>
