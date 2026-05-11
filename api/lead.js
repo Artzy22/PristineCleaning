@@ -82,8 +82,12 @@ export default async function handler(req, res) {
   const tab = process.env.GOOGLE_SHEET_TAB || 'Leads';
 
   if (!sheetId || !clientEmail || !privateKey) {
-    console.error('Missing Google env vars');
-    return res.status(500).json({ error: 'Server not configured' });
+    const missing = [];
+    if (!sheetId) missing.push('GOOGLE_SHEET_ID');
+    if (!clientEmail) missing.push('GOOGLE_SERVICE_ACCOUNT_EMAIL');
+    if (!privateKey) missing.push('GOOGLE_PRIVATE_KEY');
+    console.error('Missing Google env vars:', missing);
+    return res.status(500).json({ error: 'Server not configured', missing });
   }
 
   try {
@@ -128,7 +132,11 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ ok: true, eventId });
   } catch (err) {
-    console.error('Sheet append failed:', err.message);
-    return res.status(500).json({ error: 'Failed to save lead' });
+    console.error('Sheet append failed:', err);
+    return res.status(500).json({
+      error: 'Failed to save lead',
+      detail: err?.message || String(err),
+      code: err?.code || null
+    });
   }
 }
