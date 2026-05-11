@@ -15,7 +15,7 @@ const sections = [
   'section-5-footer.html'
 ].map(f => readFileSync(join(root, f), 'utf8')).join('\n');
 
-const pixelId = process.env.META_PIXEL_ID || 'YOUR_PIXEL_ID_HERE';
+const pixelId = process.env.META_PIXEL_ID || '3963782680424186';
 
 const indexHtml = `<!doctype html>
 <html lang="en">
