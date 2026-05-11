@@ -1,0 +1,12 @@
+{
+  "name": "pristine-cleaning",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "googleapis": "^144.0.0"
+  }
+}
