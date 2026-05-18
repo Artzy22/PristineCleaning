@@ -296,6 +296,21 @@ BEFORE PUBLISHING:
     line-height: 1;
     margin-bottom: 18px;
     letter-spacing: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .phc-hero-kicker .phc-sparkle {
+    width: 18px; height: 18px;
+    color: var(--phc-amber-light);
+    flex-shrink: 0;
+    opacity: 0.9;
+    animation: phcSparkle 3.4s ease-in-out infinite;
+  }
+  .phc-hero-kicker .phc-sparkle:last-child { animation-delay: 1.6s; }
+  @keyframes phcSparkle {
+    0%, 100% { opacity: 0.35; transform: scale(0.85) rotate(0deg); }
+    50%      { opacity: 1;    transform: scale(1.05) rotate(12deg); }
   }
   .phc-hero-h1 {
     font-family: 'Fraunces', serif;
@@ -1027,6 +1042,152 @@ BEFORE PUBLISHING:
     0% { opacity: 0; transform: translateY(10px); }
     100% { opacity: 1; transform: translateY(0); }
   }
+
+  /* ============================================================
+     SUMMER SPECIAL — sticky offer bar with 10-min countdown
+     ============================================================ */
+  .phc-offer-bar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    background:
+      radial-gradient(ellipse 60% 200% at 50% 50%, rgba(199, 152, 101, 0.22) 0%, transparent 60%),
+      linear-gradient(90deg, #0c1840 0%, #18244c 50%, #0c1840 100%);
+    border-bottom: 1px solid rgba(224, 184, 133, 0.28);
+    box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.55);
+    color: var(--phc-cream);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    overflow: hidden;
+  }
+  .phc-offer-bar::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg,
+        transparent 0%,
+        rgba(224, 184, 133, 0.08) 50%,
+        transparent 100%);
+    transform: translateX(-100%);
+    animation: phcOfferShine 7s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes phcOfferShine {
+    0%, 30% { transform: translateX(-100%); }
+    60%, 100% { transform: translateX(100%); }
+  }
+  .phc-offer-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 11px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .phc-offer-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 11px;
+    background: linear-gradient(180deg, var(--phc-amber-light) 0%, var(--phc-amber) 100%);
+    color: var(--phc-navy-deep);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 8px -2px rgba(168, 120, 50, 0.5);
+    white-space: nowrap;
+  }
+  .phc-offer-tag svg {
+    width: 12px; height: 12px;
+    flex-shrink: 0;
+  }
+  .phc-offer-text {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: rgba(246, 239, 225, 0.92);
+    letter-spacing: 0.005em;
+  }
+  .phc-offer-text strong {
+    color: var(--phc-amber-light);
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+  }
+  .phc-offer-divider {
+    width: 1px; height: 22px;
+    background: linear-gradient(180deg, transparent, rgba(224, 184, 133, 0.35), transparent);
+  }
+  .phc-offer-timer {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    color: rgba(246, 239, 225, 0.78);
+  }
+  .phc-offer-timer svg {
+    width: 14px; height: 14px;
+    color: var(--phc-amber-light);
+    flex-shrink: 0;
+  }
+  .phc-offer-time {
+    font-family: 'Fraunces', Georgia, serif;
+    font-variation-settings: 'opsz' 144, 'wght' 600;
+    font-size: 17px;
+    color: var(--phc-cream);
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+    min-width: 52px;
+    text-align: center;
+  }
+  .phc-offer-timer.is-expired .phc-offer-time { color: var(--phc-amber-light); }
+  .phc-offer-claim {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: linear-gradient(180deg, var(--phc-amber-light) 0%, var(--phc-amber) 60%, var(--phc-amber-deep) 100%);
+    color: var(--phc-navy-deep);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), 0 6px 14px -6px rgba(168, 120, 50, 0.7);
+    transition: transform .2s cubic-bezier(.2,.8,.2,1), box-shadow .2s;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .phc-offer-claim:hover {
+    transform: translateY(-1px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 10px 18px -6px rgba(168, 120, 50, 0.8);
+  }
+  .phc-offer-claim svg { width: 12px; height: 12px; }
+
+  @media (max-width: 720px) {
+    .phc-offer-inner {
+      padding: 9px 14px;
+      gap: 10px 12px;
+      flex-wrap: wrap;
+    }
+    .phc-offer-tag { font-size: 9.5px; padding: 3px 9px; letter-spacing: 0.12em; }
+    .phc-offer-text { font-size: 13px; width: 100%; order: 2; }
+    .phc-offer-text strong { font-size: 14.5px; }
+    .phc-offer-divider { display: none; }
+    .phc-offer-timer { font-size: 12px; order: 3; gap: 6px; }
+    .phc-offer-time { font-size: 15px; min-width: 46px; }
+    .phc-offer-claim { font-size: 12px; padding: 7px 13px; order: 4; }
+  }
+  @media (max-width: 380px) {
+    .phc-offer-text { font-size: 12.5px; }
+    .phc-offer-claim { padding: 6px 11px; }
+  }
 </style>
 
 <!-- META PIXEL — replace YOUR_PIXEL_ID_HERE in BOTH places -->
@@ -1043,6 +1204,27 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"/></noscript>
 
 <div class="phc-root">
+  <!-- ===== SUMMER SPECIAL — sticky offer bar (10-min visitor countdown) ===== -->
+  <div class="phc-offer-bar" id="phcOfferBar" role="region" aria-label="Limited time offer">
+    <div class="phc-offer-inner">
+      <span class="phc-offer-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        Summer Special
+      </span>
+      <span class="phc-offer-text"><strong>$97 OFF</strong> Your First Sparkling Clean</span>
+      <span class="phc-offer-divider" aria-hidden="true"></span>
+      <span class="phc-offer-timer" id="phcOfferTimer" aria-live="polite">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2"/><path d="M9 2h6M12 2v3"/></svg>
+        <span class="phc-offer-time" id="phcOfferTime">10:00</span>
+        <span class="phc-offer-time-label">left to claim</span>
+      </span>
+      <a class="phc-offer-claim" href="#phc-quiz" onclick="event.preventDefault(); var q=document.getElementById('phc-quiz'); if(q) q.scrollIntoView({behavior:'smooth', block:'center'});">
+        Claim Now
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+
   <main class="phc-stage">
     <nav class="phc-nav">
       <a class="phc-logo" href="#" aria-label="Pristine Home Care">
@@ -1057,9 +1239,13 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"/>
 
       <!-- HERO HEADLINE: kicker + H1 + sub -->
       <div class="phc-hero-headline">
-        <div class="phc-hero-kicker">Atlanta&#39;s most trusted home cleaning</div>
+        <div class="phc-hero-kicker">
+          <svg class="phc-sparkle" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.6 6.4L20 10l-6.4 1.6L12 18l-1.6-6.4L4 10l6.4-1.6L12 2z"/></svg>
+          Atlanta&#39;s most trusted home cleaning
+          <svg class="phc-sparkle" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.6 6.4L20 10l-6.4 1.6L12 18l-1.6-6.4L4 10l6.4-1.6L12 2z"/></svg>
+        </div>
         <h1 class="phc-hero-h1">Spotless homes, scheduled in <em>30 seconds</em>.</h1>
-        <p class="phc-hero-sub">Premium cleaning crews for North Atlanta, handled the way you&#39;d do it yourself.</p>
+        <p class="phc-hero-sub">Premium cleaning crews for North Atlanta &mdash; this month, <strong style="color:var(--phc-amber-light);font-weight:600;">$97 off</strong> your first sparkling clean.</p>
       </div>
 
       <!-- TICKER + QUIZ card -->
@@ -1085,7 +1271,7 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"/>
       <!-- ============ STEP 1 — Home type ============ -->
       <section class="phc-step" data-step="1">
         <div class="phc-kicker">Atlanta&#39;s most trusted home cleaning</div>
-        <div class="phc-eyebrow">Free quote · 30-second match · No credit card</div>
+        <div class="phc-eyebrow">$97 off summer special · 30-second match · No credit card</div>
         <h1>What type of <span class="phc-mark">home</span> do you have?</h1>
         <div class="phc-options">
           <div class="phc-option phc-option--photo" style="background-image:url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=70&auto=format');" onclick="phcSelect('homeType','Apartment',this)">
@@ -1191,8 +1377,8 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"/>
         <div class="phc-reveal-banner">
           <div class="phc-reveal-icon">✓</div>
           <div class="phc-reveal-text">
-            Your spot is reserved · We'll reach out in the next 5 minutes
-            <small>This week's pricing locked in · No commitment · No spam, ever</small>
+            Your spot is reserved · $97 off locked in · We'll reach out in the next 5 minutes
+            <small>Summer special pricing applied to your first clean · No commitment · No spam, ever</small>
           </div>
         </div>
 
@@ -1305,11 +1491,11 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"/>
 <script>
 (function () {
   var msgs = [
-    '<strong>Sarah M.</strong> in Marietta just got a quote <small>· 2m ago</small>',
+    '<strong>Sarah M.</strong> in Marietta claimed $97 off <small>· 2m ago</small>',
     '<strong>David K.</strong> in Lawrenceville scheduled service <small>· 5m ago</small>',
-    '<strong>Tanya R.</strong> in Norcross requested a deep clean <small>· 7m ago</small>',
+    '<strong>Tanya R.</strong> in Norcross locked in summer pricing <small>· 7m ago</small>',
     '<strong>Maria L.</strong> in Roswell booked weekly cleaning <small>· 12m ago</small>',
-    '<strong>Jennifer B.</strong> in Sandy Springs got a free quote <small>· 18m ago</small>',
+    '<strong>Jennifer B.</strong> in Sandy Springs claimed $97 off <small>· 18m ago</small>',
     '<strong>Mike &amp; Anne T.</strong> in Smyrna scheduled monthly <small>· 23m ago</small>',
     '<strong>Rachel P.</strong> in Alpharetta requested a quote <small>· 31m ago</small>',
     '<strong>Priya G.</strong> in Johns Creek booked weekly service <small>· 44m ago</small>'
@@ -1322,6 +1508,52 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"/>
     // Swap mid-fade so it's invisible during the change
     setTimeout(function () { el.innerHTML = msgs[idx]; }, 2700);
   }, 6000);
+})();
+</script>
+
+<!-- ============================================================
+SUMMER SPECIAL — 10-minute per-visitor countdown.
+Stored in sessionStorage so a refresh keeps the same timer,
+but a brand-new visit starts fresh. When it hits 0:00 the offer
+still works — copy switches to "Last call" rather than killing
+the CTA (we want leads even after the timer expires).
+============================================================ -->
+<script>
+(function () {
+  var DURATION_MS = 10 * 60 * 1000; // 10 minutes
+  var KEY = 'phc_offer_started_at';
+  var startedAt;
+  try {
+    startedAt = parseInt(sessionStorage.getItem(KEY), 10);
+    if (!startedAt || isNaN(startedAt)) {
+      startedAt = Date.now();
+      sessionStorage.setItem(KEY, String(startedAt));
+    }
+  } catch (e) {
+    startedAt = Date.now();
+  }
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function render() {
+    var el = document.getElementById('phcOfferTime');
+    var wrap = document.getElementById('phcOfferTimer');
+    if (!el) return;
+    var remaining = Math.max(0, DURATION_MS - (Date.now() - startedAt));
+    var totalSec = Math.floor(remaining / 1000);
+    var mm = Math.floor(totalSec / 60);
+    var ss = totalSec % 60;
+    el.textContent = pad(mm) + ':' + pad(ss);
+
+    if (remaining <= 0 && wrap && !wrap.classList.contains('is-expired')) {
+      wrap.classList.add('is-expired');
+      var label = wrap.querySelector('.phc-offer-time-label');
+      if (label) label.textContent = '— last call';
+    }
+  }
+
+  render();
+  setInterval(render, 1000);
 })();
 </script>
 
